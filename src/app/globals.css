@@ -436,6 +436,18 @@ ol {
   margin-top: 1.8rem;
 }
 
+.hero-season {
+  margin-top: 1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.hero-season a {
+  color: color-mix(in srgb, var(--pink) 70%, #1b1424);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .hero-fan {
   position: relative;
   height: 400px;
@@ -1235,6 +1247,43 @@ ol {
   white-space: nowrap;
 }
 
+.compare-wrap {
+  overflow-x: auto;
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+}
+
+.compare {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+}
+
+.compare th,
+.compare td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.compare th {
+  background: #fff4ea;
+  font-weight: 700;
+}
+
+.compare tr:last-child td {
+  border-bottom: 0;
+}
+
+.compare td:first-child {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 /* FAQ */
 
 .faq {
@@ -1700,6 +1749,31 @@ ol {
 .pill-links a:hover {
   background: var(--ink);
   color: #fff;
+}
+
+.related-list {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+.related-list li {
+  padding: 1rem 1.15rem;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 14px;
+}
+
+.related-list a {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.related-list p {
+  margin: 0.35rem 0 0;
+  color: var(--ink-2);
+  font-size: 0.92rem;
 }
 
 .trend-list {

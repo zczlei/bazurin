@@ -204,7 +204,7 @@ export default async function EffectPage({ params }: Props) {
               </li>
             ))}
           </ol>
-          {effect.templates.length > 1 ? (
+          {effect.templates.length > 0 ? (
             <div className="style-cards">
               {effect.templates.map((t) => (
                 <div key={t.id} className="style-card">

@@ -7,6 +7,8 @@ import {
   FaqList,
   JsonLd,
   SectionHead,
+  SpecTable,
+  Steps,
   TemplateGrid,
   breadcrumbJsonLd,
   faqJsonLd,
@@ -65,9 +67,9 @@ export default async function ToolPage({ params }: Props) {
           <h1>{tool.h1}</h1>
           <p className="hero-lede">{tool.lede}</p>
           <ul className="hero-badges">
-            <li>会員登録不要</li>
-            <li>プレビューは無料</li>
-            <li>縦型9:16対応</li>
+            {(tool.badges ?? ["会員登録不要", "プレビューは無料", "縦型9:16対応"]).map((b) => (
+              <li key={b}>{b}</li>
+            ))}
           </ul>
         </div>
       </section>
@@ -78,6 +80,17 @@ export default async function ToolPage({ params }: Props) {
           initialSlug={effects[0]?.slug}
           selectable={effects.length > 1}
         />
+
+        {tool.method ? (
+          <section className="section prose-section">
+            <SectionHead eyebrow="METHOD" title={tool.method.title} />
+            <div className="prose">
+              {tool.method.paragraphs.map((p) => (
+                <p key={p.slice(0, 16)}>{p}</p>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         {tool.sections.map((s) => (
           <section key={s.heading} className="section prose-section">
@@ -90,15 +103,90 @@ export default async function ToolPage({ params }: Props) {
           </section>
         ))}
 
+        {tool.steps ? (
+          <section className="section">
+            <SectionHead eyebrow="HOW TO" title={tool.stepsTitle ?? "3ステップで完成"} />
+            <Steps steps={tool.steps} />
+          </section>
+        ) : null}
+
         <section className="section">
-          <SectionHead eyebrow="TEMPLATES" title="使えるテンプレート" />
+          <SectionHead
+            eyebrow="TEMPLATES"
+            title={tool.method ? "動きはテンプレートから選びます" : "使えるテンプレート"}
+            lede={tool.method ? "同じ手順で、別の構図も作れます。プロンプトの入力はありません。" : undefined}
+          />
           <TemplateGrid effects={effects} uidPrefix={`tool-${tool.slug}`} />
         </section>
+
+        {tool.rules ? (
+          <section className="section" id="image-tips">
+            <SectionHead eyebrow="PHOTO" title={tool.rulesTitle ?? "画像の条件"} />
+            <div className="tips">
+              {tool.rules.map((t) => (
+                <article key={t.title} className="tip">
+                  <h3>{t.title}</h3>
+                  <p>{t.body}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {tool.specs ? (
+          <section className="section">
+            <SectionHead eyebrow="SPEC" title="仕様" />
+            <SpecTable rows={tool.specs} />
+          </section>
+        ) : null}
+
+        {tool.compare ? (
+          <section className="section">
+            <SectionHead eyebrow="COMPARE" title={tool.compare.title} lede={tool.compare.intro} />
+            <div className="compare-wrap">
+              <table className="compare">
+                <thead>
+                  <tr>
+                    {tool.compare.cols.map((c) => (
+                      <th key={c} scope="col">
+                        {c}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {tool.compare.rows.map((row) => (
+                    <tr key={row[0]}>
+                      {row.map((cell) => (
+                        <td key={cell}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="fine">{tool.compare.note}</p>
+          </section>
+        ) : null}
 
         <section className="section" id="faq">
           <SectionHead eyebrow="FAQ" title="よくある質問" />
           <FaqList items={tool.faq} />
         </section>
+
+        {tool.related?.length ? (
+          <section className="section section-tight">
+            <SectionHead eyebrow="RELATED" title="こちらも" />
+            <ul className="related-list">
+              {tool.related.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href}>{item.anchor}</Link>
+                  <p>{item.desc}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
         <section className="section section-tight">
           <SectionHead eyebrow="MORE" title="ほかの使い方" />

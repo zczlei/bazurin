@@ -119,6 +119,9 @@ export default function HomePage() {
                 テンプレートを見る
               </Link>
             </div>
+            <p className="hero-season">
+              <Link href="/effects/zombie-trend">ハロウィンの投稿に、写真1枚で作れるゾンビカット。</Link>
+            </p>
           </div>
           <div className="hero-fan" aria-hidden>
             {fan.map((e, i) => (
