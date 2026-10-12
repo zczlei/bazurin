@@ -12,8 +12,7 @@ export const CREDIT_PACKS: CreditPack[] = [
   {
     id: "single",
     videos: 1,
-    // Test checkout only: about USD 0.90 at ~158.6 JPY/USD. Revert to 980 after the recharge test.
-    priceJpy: 143,
+    priceJpy: 980,
     label: "1本",
     features: ["書き出し1回分", "透かしなし"],
   },
