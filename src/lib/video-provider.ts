@@ -225,7 +225,7 @@ async function submitKie(input: GenerateInput): Promise<ProviderSubmitResult> {
   const base = env("KIE_API_BASE") || "https://api.kie.ai";
   if (!key) throw new Error("KIE_API_KEY missing");
 
-  const model = env("KIE_VIDEO_MODEL") || "bytedance/seedance-2-mini";
+  const model = env("KIE_VIDEO_MODEL") || "bytedance/seedance-2-5";
   if (!input.imageUrls[0]) throw new Error("KIE needs at least one first_frame_url");
 
   const firstFrameUrl = await resolveKieImageUrl(input.imageUrls[0], key);
@@ -332,7 +332,7 @@ async function submitArk(input: GenerateInput): Promise<ProviderSubmitResult> {
     throw new Error("Ark needs at least one reference image");
   }
 
-  const model = env("ARK_VIDEO_MODEL") || "doubao-seedance-2-0-260128";
+  const model = env("ARK_VIDEO_MODEL") || "doubao-seedance-2-5-260628";
   const duration = Math.min(15, Math.max(4, input.durationSec || 5));
   const generateAudio = env("ARK_GENERATE_AUDIO") === "true";
 
