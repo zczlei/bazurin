@@ -1,0 +1,804 @@
+export type EffectTemplate = {
+  id: string;
+  name: string;
+  /** Short Japanese label shown on the style card (e.g. 「あの構図そのもの」). */
+  tagline?: string;
+  blurb: string;
+  /** Sent to the video provider; English reads more reliably for current models. */
+  promptHint: string;
+};
+
+/** Visual theme for the free canvas preview and the CSS cover art. */
+export type EffectScene = "booth" | "party" | "redroom" | "rain" | "zombie";
+
+export type EffectDefinition = {
+  slug: string;
+  /** Trend name as Japanese users search it (kept in English). */
+  name: string;
+  title: string;
+  h1: string;
+  lede: string;
+  description: string;
+  cardBlurb: string;
+  accent: string;
+  accent2: string;
+  scene: EffectScene;
+  category: "duet" | "dance" | "cinematic" | "horror";
+  durationSec: number;
+  aspectRatio: "16:9" | "9:16";
+  subjects: 1 | 2;
+  featured?: boolean;
+  seoKeywords: string[];
+  templates: EffectTemplate[];
+  /** 「このトレンドとは」 */
+  about: string[];
+  aboutTitle?: string;
+  /** 「具体的な作り方」 */
+  steps: { title: string; body: string }[];
+  stepsTitle?: string;
+  /** Optional 「プロンプト」 section (#prompt) for trends people search with プロンプト. */
+  promptGuide?: {
+    title: string;
+    paragraphs: string[];
+    boxLabel: string;
+    order: string;
+    recipe: string;
+    outro: string;
+  };
+  /** 「写真の条件」 */
+  photoTips: { title: string; body: string }[];
+  photoTipsTitle?: string;
+  photoTipsLede?: string;
+  cta?: { title: string; sub: string };
+  faq: { q: string; a: string }[];
+  /** Overrides the default hero badges. */
+  badges?: string[];
+  /** Shown as a boxed note under 「このトレンドとは」 (e.g. no official affiliation). */
+  disclaimer?: string;
+  extraSpecs?: [string, string][];
+  /** ISO date of the last content update (sitemap lastModified). */
+  updated: string;
+};
+
+const COMMON_FAQ = {
+  music: {
+    q: "曲は入っていますか？",
+    a: "音源は付属しません。投稿時にTikTok・Instagram・YouTubeのサウンドから楽曲をお選びください。各プラットフォームの楽曲ライブラリを使うのが、著作権の面でもいちばん安全な方法です。",
+  },
+  commercial: {
+    q: "商用利用はできますか？",
+    a: "個人SNSへの投稿を前提としています。広告・商品販売・案件投稿などの商用利用はできません。",
+  },
+  others: {
+    q: "他人や有名人の写真は使えますか？",
+    a: "ご本人、またはご家族・ご友人など承諾を得ている方の写真のみご利用ください。有名人やタレントの肖像を使った動画の生成・投稿はお断りしています。",
+  },
+};
+
+export const EFFECTS: EffectDefinition[] = [
+  {
+    slug: "hotel-lobby",
+    updated: "2026-10-13",
+    name: "Hotel Lobby",
+    title: "ホテルロビーAI動画の作り方｜写真2枚でオレンジのデュエット",
+    h1: "ホテルロビーAI動画の作り方｜写真2枚でオレンジのデュエットを",
+    lede: "オレンジ色のブース、天井から吊るされたマイク、動かないカメラの前で2人が口を動かす。Migos「Hotel Lobby」× COLORS のブースを起点に、いままた広がっているあの形を、写真2枚から縦型9:16・10秒でそのまま再現します。プロンプトの入力はありません。",
+    description:
+      "Migos「Hotel Lobby」× COLORS のブース、あのオレンジの構図を写真2枚から縦型9:16で。プロンプト不要、左右の立ち位置は固定、配置プレビューはカード不要で無料。書き出しは1本980円（税込）から、音源は付属しません。",
+    cardBlurb:
+      "写真2枚で、オレンジ色のブースで向かい合うデュエット動画。Migos・COLORS風のあの構図を、そのまま再現できます。",
+    accent: "#ff6a1f",
+    accent2: "#ffb03a",
+    scene: "booth",
+    category: "duet",
+    durationSec: 10,
+    aspectRatio: "9:16",
+    subjects: 2,
+    featured: true,
+    badges: ["写真2枚", "10秒・縦型9:16", "左右の位置は固定", "プレビューは無料", "カード不要", "アプリ不要"],
+    seoKeywords: [
+      "ホテルロビー ai動画",
+      "ホテルロビー トレンド",
+      "ホテルロビー ai動画 作り方",
+      "ホテルロビー colors",
+      "migos ホテルロビー ai動画",
+      "ホテルロビー ブースフィルター",
+      "ホテルロビー プロンプト",
+      "hotel lobby ai video",
+    ],
+    templates: [
+      {
+        id: "classic-orange",
+        name: "Classic Orange Booth",
+        tagline: "あの構図そのもの",
+        blurb:
+          "オレンジ色のブース、天井から吊るされたマイク、カメラを動かさない固定のミディアムショット。トレンドでみんなが真似しているのはこのスタイルです。",
+        promptHint:
+          "Two performers side by side in a bright orange COLORS-style studio booth, one hanging microphone between them, alternating rap gestures and head nods, locked medium shot with no camera movement, the left person stays on the left and the right person stays on the right, keep both faces and outfits from the reference photos, vertical 9:16 music video",
+      },
+      {
+        id: "friends-couples",
+        name: "Friends & Couples",
+        tagline: "2人をはっきり左右に",
+        blurb:
+          "2人の主役をはっきり左右に離して配置します。顔が近い写真・寄り添った写真を使うときは、こちらが安定します。",
+        promptHint:
+          "Two friends performing a playful call-and-response in an orange COLORS-style booth with a hanging microphone, clear separation between the two people, smiling and pointing at each other, locked medium shot, positions never swap, keep both faces from the reference photos, vertical 9:16",
+      },
+      {
+        id: "pets",
+        name: "Rapping Pets",
+        tagline: "ペット2匹で",
+        blurb: "犬や猫を2匹並べる派生形。毛並みや柄の個性はそのままに、口と体の動きをつけます。",
+        promptHint:
+          "Two pets sitting side by side in an orange studio booth under a hanging microphone, bobbing their heads to the beat, playful and cute, keep fur color and markings from the reference photos, locked medium shot, vertical 9:16",
+      },
+    ],
+    aboutTitle: "ホテルロビーAI動画トレンドとは",
+    about: [
+      "形はとても単純です。オレンジ色に照らされたロビーで、2人の主役が並び、天井から吊るされたマイクに向かって口を動かす。カメラは固定されたミディアムショットのまま動かず、2人は揃ったリズムで体を揺らします。ミュージックビデオのデュエットのように撮られたこの形が、TikTok・Instagram Reels・YouTube Shorts で次々と真似されています。",
+      "発端は Migos の「Hotel Lobby」——Quavo と Takeoff のトラック——にのせて撮られた、COLORS のブース・パフォーマンスです。そのためこのトレンドは「ホテルロビー COLORSトレンド」「Migos ホテルロビー AI動画」「ホテルロビーブースフィルター」とも呼ばれていて、検索される呼び方がいくつかに分かれています。",
+      "ただし元映像はライセンスされたミュージックビデオなので、切り貼りして加工するやり方では、投稿できるものは残りません。実際に投稿できるのは、自分たちの写真から作った動画です。写真2枚と、この構図を固定したテンプレートがあれば、10秒の縦型動画が完成します。",
+    ],
+    disclaimer:
+      "本ページはトレンドの作り方を解説する情報ページです。バズリンは Migos 氏、COLORS、および楽曲・映像の関連権利者とは一切関係を持っていません。元映像の編集・再配布は行っていません。",
+    stepsTitle: "写真2枚からホテルロビー動画を作る3ステップ",
+    steps: [
+      {
+        title: "2人の写真を用意する",
+        body: "主役は2人だけ。「左の人」の枠に入れた写真が左、「右の人」の枠が右に固定され、動画の最後まで位置は動きません。友人・カップル・バンド仲間、自分の過去の写真との組み合わせでも、同じ形で作れます。",
+      },
+      {
+        title: "1人1枚の正面顔をアップロード",
+        body: "1枚につき1人、正面またはやや斜め向きで、光が均一、頭と肩まで写っている写真を選びます。JPG・PNG・WebP・HEIC、1枚最大10MB。サングラス、真横の顔、顔が重なった集合写真、圧縮されたスクリーンショットは避けてください。",
+      },
+      {
+        title: "無料で配置を確認してから、保存",
+        body: "クレジットを使う前に、ブラウザ上でブースの配置・誰がどちらに立つか・画面の切れ方を確認できます。左右に納得できたら、1本980円（税込）で10秒の動画を書き出します。",
+      },
+    ],
+    promptGuide: {
+      title: "ホテルロビーAI動画のプロンプト（バズリンでは書きません）",
+      paragraphs: [
+        "Reddit や TikTok には「オレンジ色のホテルロビー、吊るされたマイク、2人のラッパー、カメラ固定、リップシンク、10秒」と書き連ねた、長いプロンプトのレシピが出回っています。こうしたプロンプトが必要になるのは、多くの画像→動画ツールがユーザーに文章を書かせるからです。",
+        "バズリンでは書きません。画角・ブースの灯り・マイクの位置・2人の左右の配置は、あなたの文章ではなくテンプレート側で決まるためです。他のツールでクレジットを無駄にする2大原因——カメラが勝手に動く、フレームごとに2人の左右が入れ替わる——を、仕組みの側で防いでいます。",
+      ],
+      boxLabel: "他の生成ツールで組む場合の、崩れにくい順番",
+      order:
+        "① 人数と位置 → ② 場所と灯り → ③ カメラの挙動 → ④ 動き → ⑤ 長さ。「動くもの」だけでなく「変わらないもの」を先に指定してください。",
+      recipe: [
+        "2人の人物が並んで立ち、左と右の位置は固定。",
+        "オレンジ色に照らされたブース、",
+        "2人の間に天井から吊るされたマイク。",
+        "固定したミディアムショット、カメラは動かさない。",
+        "2人とも最後まで同じ側に立ったまま、口を動かす。",
+        "縦型9:16、長さ10秒。",
+      ].join("\n"),
+      outro: "…と書くくらいなら、写真を2枚選んでプレビューを押すほうが早いです。",
+    },
+    photoTipsTitle: "仕上がりが変わる・写真の条件",
+    photoTipsLede:
+      "うまくいかない生成のほとんどは、モデルではなく写真が原因です。アップロードする前に、この6項目だけ確認してください。クレジットを1回分節約できます。",
+    photoTips: [
+      {
+        title: "顔がはっきり見えること",
+        body: "帽子のつば、手で口元を隠した写真、ブレた写真では顔の一致率が下がります。柔らかい順光の正面か、斜め45度くらいの向きがいちばん安定します。",
+      },
+      {
+        title: "1枚に1人",
+        body: "アップロード1件を1人の主役として扱います。2人が同じ写真に写っていると、違う顔を動かそうとします。必ず別々の2枚にしてください。",
+      },
+      {
+        title: "2枚の構図と大きさを揃える",
+        body: "頭と肩のサイズがほぼ同じ2枚が、いちばん自然なデュエットになります。全身写真と顔のアップのセルフィーを組み合わせると、2人の大きさがちぐはぐになります。",
+      },
+      {
+        title: "頭の上に余白を残す",
+        body: "この画面には、2人の間に吊るされたマイクが入ります。頭の上に少し余白がないと、マイクが頭にかぶってしまいます。",
+      },
+      {
+        title: "背景は単色、または暖色",
+        body: "最終的にオレンジのブースに合成されるため、ごちゃついた背景はノイズになるだけです。",
+      },
+      {
+        title: "ペットの場合",
+        body: "Rapping Pets では、顔と耳の模様がはっきり写っている写真ほど、動き出した後も「その子」だと分かるままになります。",
+      },
+    ],
+    extraSpecs: [
+      ["料金", "1本980円（税込）／3本2,480円／10本5,980円。月額課金なし・クレジットに有効期限なし"],
+      [
+        "アカウント",
+        "不要。ゲストのまま生成・ダウンロードできます。Googleログインでクレジットを端末間で引き継げます",
+      ],
+      ["生成に失敗したとき", "クレジットは自動で返却されます"],
+      [
+        "公式関係",
+        "ありません。Migos 氏、COLORS、および楽曲・映像の関連権利者とは無関係の独立したサービスです",
+      ],
+    ],
+    faq: [
+      {
+        q: "ホテルロビーAI動画トレンドとは何ですか？",
+        a: "2人の主役がオレンジ色のロビーに立ち、天井から吊るされたマイクに向かって口を動かす、ミュージックビデオ風のデュエット動画のトレンドです。Migos の「Hotel Lobby」（Quavo と Takeoff のトラック）にのせて撮られた COLORS のブース・パフォーマンスの形が元になっており、今年に入って TikTok と Reels で再び広がっています。呼び方も複数あり、「ホテルロビー COLORSトレンド」「Migos ホテルロビー AI動画」「ホテルロビーブースフィルター」などで検索されています。",
+      },
+      {
+        q: "写真は2枚必要ですか？",
+        a: "2枚です。1人につき1枚をご用意ください。「左の人」「右の人」の枠に入れた写真がそのまま左右の立ち位置になり、動画の最後まで変わりません。主役が1人のトレンド（Bulin 47 など）は写真1枚で作れます。",
+      },
+      {
+        q: "元動画（ミュージックビデオ）を使っているのですか？",
+        a: "使っていません。元の映像はライセンスされたミュージックビデオのため、それを編集・再配布する形では、投稿できるものは作れません。バズリンはあなたの2枚の写真から新しいシーンとして生成します。オレンジ色の灯り、吊るされたマイク、画面の構図だけを受け継ぎ、主役は完全にあなたの写真です。",
+      },
+      {
+        q: "プロンプトはどう書けばいいですか？",
+        a: "書く必要はありません。この形をプロンプトで再現しようとすると、カメラが勝手に動く、2人の左右がフレームごとに入れ替わる、という2つの失敗が起きやすく、クレジットを無駄にします。バズリンでは画角・ブースの灯り・マイクの位置・左右の配置がテンプレート側で固定されています。他の生成ツールで組む場合の順番は、①人数と位置 ②場所と灯り ③カメラの挙動 ④動き ⑤長さ です。動くことだけでなく「変わらないこと」を先に指定してください。",
+      },
+      {
+        q: "曲（音源）は入っていますか？",
+        a: "入っていません。動画は音なしで完成します。投稿する際に TikTok・Instagram Reels・YouTube Shorts のサウンドライブラリから楽曲を選んでください。各プラットフォームのライセンスの範囲内で使える、いちばん安全な方法です。",
+      },
+      {
+        q: "無料で試せますか？",
+        a: "配置のプレビューは無料で、クレジットカードの登録も不要です。写真2枚をアップロードすると、ブラウザ上でオレンジのブースの画角、マイクの位置、誰がどちらに立つかを確認できます。納得できた方だけ、1本980円（税込）で本編を書き出します。月額課金や自動更新はありません。",
+      },
+      {
+        q: "カップル・友人・ペットでも使えますか？",
+        a: "使えます。トレンド本来の形なら Classic Orange Booth、2人の距離が近く顔が重なりそうな写真なら Friends & Couples、2匹とも人間でない場合は Rapping Pets を選んでください。",
+      },
+      {
+        q: "他人や有名人の写真は使えますか？",
+        a: "ご本人または承諾を得ている方のみご利用ください。有名人の写真を無断で主役にした動画の生成・投稿は利用規約で禁じています。個人SNSでの利用を前提としており、広告・商品販売などの商用利用はできません。",
+      },
+    ],
+    cta: {
+      title: "2人の写真を上げて、まずは配置を見てみませんか。",
+      sub: "クレジットカードもアプリも不要です。画角と左右が決まったところまで、無料で確認できます。",
+    },
+  },
+  {
+    slug: "bulin-47",
+    name: "Bulin 47",
+    title: "Bulin 47 AI動画の作り方｜写真1枚でフリースタイルの主役に",
+    h1: "Bulin 47 AI動画の作り方｜写真1枚でフリースタイルの主役に",
+    lede: "赤い照明のライブハウス、群衆をかき分けるスマホカメラ、その前でもう一人がラップをする。Bulin 47 × Kevin Wai をきっかけに広がったあのフリースタイルの形を、写真1枚から縦型9:16・10秒でそのまま再現します。プロンプトの入力はありません。",
+    description:
+      "写真1枚で、赤い照明のライブハウスの主役に。Bulin 47 × Kevin Wai のフリースタイルトレンドを、プロンプト入力なしで縦型9:16・10秒のまま生成します。配置プレビューは無料、書き出しは1本980円（税込）から。",
+    cardBlurb: "写真1枚で、赤い照明のライブハウスでフリースタイルをする主役に。",
+    accent: "#ff2e55",
+    accent2: "#ff8a3d",
+    scene: "redroom",
+    category: "dance",
+    durationSec: 10,
+    aspectRatio: "9:16",
+    subjects: 1,
+    updated: "2026-10-13",
+    badges: ["写真1枚", "10秒・縦型9:16", "プレビューは無料", "会員登録不要", "アプリ不要"],
+    seoKeywords: [
+      "bulin 47",
+      "bulin 47 ai",
+      "bulin 47 プロンプト",
+      "bulin 47 チュートリアル",
+      "bulin 47 作り方",
+      "kevin wai bulin 47",
+    ],
+    templates: [
+      {
+        id: "freestyle-lead",
+        name: "Freestyle Lead",
+        blurb: "赤い照明のライブハウスのど真ん中。定番のあの構図。",
+        promptHint:
+          "One person rapping a freestyle as the lead performer in the middle of a red-lit live venue, the crowd holding phones up, a handheld vertical phone camera pushing through the crowd toward the subject, dembow rhythm body moves, vertical 9:16, keep the subject's face identity and outfit from the photo, cinematic social video, not a celebrity likeness",
+      },
+      {
+        id: "crowd-hype",
+        name: "Crowd Hype",
+        blurb: "群衆の輪の中、スマホを掲げる視線の先へ。テンション高めの1カット。",
+        promptHint:
+          "One person freestyling inside a tight circle of a hyped night crowd with phones raised, deep red lighting, energetic shaky handheld camera, vertical 9:16, keep face identity and outfit from the photo",
+      },
+      {
+        id: "character-recast",
+        name: "Character Recast",
+        blurb: "キャラやスタンの一枚を主役に据える。使える素材かどうかはご自身で確認してください。",
+        promptHint:
+          "A stylized character as the lead freestyle performer in a red-lit live venue, crowd with phones raised, handheld camera energy, vertical 9:16, keep the distinctive look from the reference image",
+      },
+    ],
+    about: [
+      "Bulin 47 はドミニカ共和国のデムボウ（Dembow）アーティストで、Kevin Wai との組み合わせのフリースタイル映像を起点に、SNSで大きなトレンドになりました。西語圏のメディア（Telenoticias など）も「SNSで勢いづいているトレンドの主人公」として取り上げています。",
+      "形はとても単純です。赤く光るライブ会場で、群衆がスマホを掲げ、その前にもう一人が即興のラップをする。手ブレする縦持ちカメラが群衆をかき分けて主役に寄っていく——この「空気感」が、いまの TikTok・Instagram Reels・YouTube Shorts で一瞬で伝わるため、次々と投稿が生まれています。",
+      "元動画に自分の顔を乗せ換える「face swap」型のサイトもありますが、それは元映像に依存する作りです。バズリンはあなたの写真から新しいシーンとして生成します。元映像を編集・再配布するものではないので、赤い照明と手ブレの質感はそのままに、写真1枚で完成します。",
+    ],
+    disclaimer:
+      "本ページはトレンドの作り方を解説する情報ページです。バズリンは Bulin 47 氏、Kevin Wai 氏、および楽曲・映像の関連権利者とは一切関係がありません。",
+    steps: [
+      {
+        title: "写真を選ぶ",
+        body: "スマホのアルバムから、正面を向いた1枚を選択します。加工・切り抜きは不要です。",
+      },
+      {
+        title: "スタイルを決める",
+        body: "Freestyle Lead が定番の赤い部屋。群衆の熱量を強めたいなら Crowd Hype、キャラを使いたいなら Character Recast。",
+      },
+      {
+        title: "プレビューして、保存",
+        body: "動画になる前の「配置」を無料でご確認ください。納得できたら1本980円（税込）で書き出します。音源は入りません。",
+      },
+    ],
+    photoTips: [
+      { title: "両目が見えていること", body: "前髪や手で目を隠した写真だと、顔の一致が甘くなります。" },
+      {
+        title: "1人の写真を使う",
+        body: "このトレンドは主役1人。複数人が写っている写真は先に切り抜いてください。",
+      },
+      {
+        title: "上半身まで入れる",
+        body: "頭だけのトリミングより、肩と服装まで写っているほうが動きが自然に出ます。",
+      },
+      {
+        title: "光のムラが少ない1枚",
+        body: "強い逆光・夜の繁華街のような色被りは、赤い照明と混ざって潰れます。",
+      },
+      {
+        title: "サングラスは避ける",
+        body: "元動画では定番の小道具ですが、入力写真で目を覆うと顔の一致率が落ちます。",
+      },
+      { title: "使える写真だけを", body: "ご本人・ご家族・承諾のある友人の写真のみご利用ください。" },
+    ],
+    extraSpecs: [
+      ["アカウント", "不要。ゲストのままプレビューまで可能です"],
+      [
+        "公式関係",
+        "ありません。Bulin 47 氏および関連する権利者とは無関係の独立したサービスです",
+      ],
+    ],
+    faq: [
+      {
+        q: "Bulin 47 AI動画とは何ですか？",
+        a: "ドミニカ共和国のデムボウ（Dembow）アーティスト Bulin 47、そして Kevin Wai との組み合わせをきっかけに広がったフリースタイル系の動画トレンドに、自分の姿を合成する作り方のことです。赤く光るライブ会場で、群衆をかき分けるスマホカメラの前にもう一人がラップをする、あの構図を写真1枚から再現します。",
+      },
+      {
+        q: "写真は1枚だけ必要ですか？",
+        a: "1枚です。このトレンドは主役が1人の構図のため、Hotel Lobbyのように2枚を用意する必要はありません。複数人が写っている写真を使う場合は、主役だけ切り抜いてからアップロードしてください。",
+      },
+      {
+        q: "プロンプトを書かないと作れませんか？",
+        a: "書きません。照明・群衆の熱量・手ブレの空気感はテンプレート側で固定しています。プロンプトを打つ生成ツールだと、モデルが勝手に別のクラブシーンを作り、結果として「あのトレンド」に見えなくなるという失敗が起きます。バズリンではその失敗を構造的に消しています。",
+      },
+      {
+        q: "曲（音源）は入っていますか？",
+        a: "入っていません。動画は音なしで完成します。投稿する際に TikTok・Instagram Reels・YouTube Shorts のサウンドセレクションから、トレンドで使われている楽曲を選んでください。著作権・利用範囲の心配なくお試しいただける形にしています。",
+      },
+      {
+        q: "Bulin 47 の公式サービスですか？",
+        a: "いいえ。当社は Bulin 47 氏、Kevin Wai 氏、および楽曲・映像の関連権利者とは一切関係を持っていません。本ページはトレンドの作り方を解説する情報ページであり、元映像を編集・再配布するものではありません。あなたの写真から新しいシーンを生成します。",
+      },
+      {
+        q: "有料ですか？いくらですか？",
+        a: "配置のプレビューは何度でも無料です。書き出しは1本980円（税込）の都度課金で、月額課金やサブスクはありません。3本2,480円、10本5,980円のパックが1本あたり単価でお得です。生成に失敗した回はクレジットを戻します。",
+      },
+      {
+        q: "スマホだけでも作れますか？",
+        a: "作れます。iPhone・Android ともにブラウザだけで完結し、アプリのインストールは不要です。アルバムから写真を選ぶだけで縦型9:16の動画が書き出せます。",
+      },
+      {
+        q: "他人や有名人の写真は使えますか？",
+        a: "ご本人または承諾を得ている方のみご利用ください。有名人・タレントの肖像を使った動画の生成や、本人のふりをする投稿は利用規約で禁じています。個人SNSでの利用を前提としており、広告などの商用利用はできません。",
+      },
+    ],
+  },
+  {
+    slug: "burning-bridges",
+    updated: "2026-10-13",
+    name: "Burning Bridges",
+    title: "Burning Bridges AI動画の作り方｜写真1枚でパーティーの主役に",
+    h1: "Burning Bridges AI動画の作り方｜写真1枚でシャンデリアの部屋の主役に",
+    lede: "シャンデリアの灯るプライベートダイニング、混んだ部屋をかき分けるハンドヘルドのカメラ、掲げられた金属のカップ、そしてカメラにまっすぐ振る手。写真1枚で、ドレイク「Burning Bridges」を起点に広がったあのパーティーの形を、10秒・縦型9:16でそのまま再現します。プロンプトの入力はありません。",
+    description:
+      "ドレイク「Burning Bridges」のシャンデリアの部屋、あのパーティー動画を写真1枚から。プロンプト不要、金属のカップと「Where she at?」の仕草も選べます。配置プレビューはカード不要で無料、書き出しは1本980円（税込）から。",
+    cardBlurb:
+      "写真1枚で、シャンデリアの部屋でカップを掲げるパーティーの主役に。ドレイク「Burning Bridges」のあの構図。",
+    accent: "#e0a43a",
+    accent2: "#ff6b3d",
+    scene: "party",
+    category: "cinematic",
+    durationSec: 10,
+    aspectRatio: "9:16",
+    subjects: 1,
+    badges: ["写真1枚", "10秒・縦型9:16", "プレビューは無料", "会員登録不要", "ペットも可", "アプリ不要"],
+    seoKeywords: [
+      "burning bridges ai",
+      "burning bridges ai動画",
+      "burning bridges ai video 作り方",
+      "drake burning bridges ai動画",
+      "バーニングブリッジズ ai",
+      "where she at ai",
+    ],
+    templates: [
+      {
+        id: "chandelier-party",
+        name: "Chandelier Party",
+        tagline: "定番のあの部屋",
+        blurb:
+          "混んだ個室、温かい金色の灯り、水晶のシャンデリア。カメラにまっすぐ振る手と金属のカップ。トレンドでいちばん多く真似されている形です。",
+        promptHint:
+          "One person as the life of a packed private dining-room party under crystal chandeliers, warm golden light, handheld camera energy, raising a metal cup, waving at the lens, friends crowding behind, cinematic vertical 9:16 music-video style, keep the subject's face identity and outfit from the photo, original motion not a celebrity likeness",
+      },
+      {
+        id: "where-she-at",
+        name: "Where She At?",
+        tagline: "仕草まで入れる",
+        blurb:
+          "手のひらで目の上を覆いながら部屋を見渡す、あの一拍を入れるスタイル。音のタイミングに映像を寄せたい方向けです。",
+        promptHint:
+          "One person in a chandelier-lit party scene doing the hand-over-eyes searching gesture twice, silver cup in hand, finger flicks at the lens, crowded friends behind, warm film look, vertical 9:16, keep face identity from the photo",
+      },
+      {
+        id: "party-pet",
+        name: "Party Pet",
+        tagline: "ペットを主役にする",
+        blurb:
+          "犬や猫をパーティーの主役の位置に立たせる派生形。毛並みと柄の個性はそのままに、少し得意げな立ち姿の動きをつけます。",
+        promptHint:
+          "A pet standing upright as the star of a packed chandelier party, silver cup raised, waving at the handheld camera, warm golden light, friends in soft focus behind, cinematic vertical 9:16, keep fur markings from the photo",
+      },
+    ],
+    aboutTitle: "Burning Bridges AI動画トレンドとは",
+    about: [
+      "いま真似されているのは、シャンデリアが灯る個室のパーティーの一場面です。ハンドヘルドのカメラが人混みの中を進んでいくと、周りの友人がレンズに集まり、金属のカップが掲げられ、主役がカメラに向かって手を振る。温かい金色の灯りと少し揺れる手ブレが、「本物のパーティー映像」らしさをつくっています。",
+      "発端はドレイクの「Burning Bridges」のミュージックビデオとされ、多くのバージョンでは「Where she at?」の仕草——手のひらで目の上を覆いながら部屋を見渡す、あの一拍——まで再現されています。呼び方も分かれていて、「burning bridges ai」「drake burning bridges ai動画」「バーニングブリッジズ AI」などで検索されています。",
+      "似た作りに、元映像へ顔を合成する face swap 系のサイトがあります。ただ、元映像はライセンスされたミュージックビデオなので、切り貼りで加工するやり方では権利の問題で投稿できるものが残りにくくなります。バズリンはあなたの写真から新しいシーンとして生成します。シャンデリアの灯り、カップ、手を振る動きといった「形」だけを受け継ぎ、主役は完全にあなたの写真です。",
+    ],
+    disclaimer:
+      "本ページはトレンドの作り方を解説する情報ページです。バズリンは Drake 氏、および楽曲・映像の関連権利者とは一切関係を持っていません。元映像の編集・再配布は行っていません。",
+    stepsTitle: "写真1枚からBurning Bridges動画を作る3ステップ",
+    steps: [
+      {
+        title: "主役の1枚を選ぶ",
+        body: "このトレンドの主役は1人だけ。セルフィー、全身写真、ペットの写真でも、同じ形で作れます。服装やアクセサリーまで写っている写真だと、その質感がパーティーのシーンに持ち込まれます。集合写真の場合は、先に1人分だけ切り抜いてください。",
+      },
+      {
+        title: "正面の鮮明な1枚をアップロード",
+        body: "正面または斜め向きで、光が均一、顔がはっきりしていて、肩（できれば腰）まで写っている写真を選びます。JPG・PNG・WebP・HEIC、1枚最大10MB。強いフィルター、直接のフラッシュ、目を隠すサングラス、ブレた写真は避けてください。生成側は写っているものしか使えません。",
+      },
+      {
+        title: "スタイルを選んで、プレビューして、保存",
+        body: "定番の部屋なら Chandelier Party、仕草まで入れたいなら Where She At?、ペットなら Party Pet。配置を無料で確認してから、1本980円（税込）で10秒の縦型動画を書き出します。曲は入りません。",
+      },
+    ],
+    promptGuide: {
+      title: "Burning Bridges AI動画のプロンプト（バズリンでは書きません）",
+      paragraphs: [
+        "プロンプト型の生成ツールでは、シャンデリアの個室、ハンドヘルドのカメラ、金属のカップ、手を振る動き、Where she at? の仕草、顔は写真のまま保つこと、10秒・縦型——これをまとめて入力する必要があります。そうした「レシピ」が出回るのは、プロンプト型のツールが撮影プランをあなたに任せているからです。",
+        "その結果、よくある失敗は2つ。カメラが見知らぬクラブのシーンへ流れていくこと、そして顔がアップロードした写真からずれていくこと。どちらもクレジットを1回無駄にします。バズリンでは部屋の熱気・灯り・カップ・仕草の選択肢がテンプレート側で固定されているので、選ぶのは写真1枚とスタイルだけです。",
+      ],
+      boxLabel: "別のアプリで組む場合の、崩れにくい順番",
+      order:
+        "① 主役と顔の指定 → ② 場所と灯り → ③ カメラの挙動 → ④ 動き → ⑤ 長さ。「動くもの」だけでなく「変わらないもの」を先に書くのが、この形を崩さないコツです。",
+      recipe: [
+        "主役は1人。顔と服装は写真のまま保つ。",
+        "水晶のシャンデリアが灯る、混んだ個室のパーティー、温かい金色の光。",
+        "ハンドヘルドのカメラが人混みを進み、主役に寄る。",
+        "主役は金属のカップを掲げ、カメラに手を振る。",
+        "縦型9:16、長さ10秒。",
+      ].join("\n"),
+      outro: "…と書くくらいなら、写真を1枚選んでプレビューを押すほうが早いです。",
+    },
+    photoTipsTitle: "仕上がりが変わる・写真の条件",
+    photoTipsLede:
+      "うまくいかない生成のほとんどは、モデルではなく写真が原因です。アップロードする前に、この6項目だけ確認してください。",
+    photoTips: [
+      {
+        title: "両目が見えていること",
+        body: "前髪や手で顔を隠した写真、ブレた写真では顔の一致率が下がります。柔らかい順光の正面か、斜め向きがいちばん安定します。",
+      },
+      {
+        title: "1枚に1人",
+        body: "アップロード1件を1人の主役として扱います。2人が同じ写真に写っていると、違う人を動かそうとします。必ず1人だけの写真にしてください。",
+      },
+      {
+        title: "上半身〜全身で撮る",
+        body: "腰から上、または全身の写真なら、服装そのものがパーティーの装いに反映されます。顔だけの接写だと、服の情報を生成側が補うしかなくなります。",
+      },
+      {
+        title: "露出を揃える",
+        body: "強いネオンフィルター、暗い部分が潰れた写真、直接のフラッシュは避けてください。部屋の灯りはもともと暖かくにぎやかなので、写真側の色被りはノイズになります。",
+      },
+      {
+        title: "ペットの場合",
+        body: "顔と柄の特徴がはっきり写っている写真を使ってください。Party Pet はその柄を保ったまま、二本足で立つパーティーのポーズをつけます。",
+      },
+      {
+        title: "使える写真だけを",
+        body: "ご本人・ご家族・承諾のある方の写真のみご利用ください。有名人の写真を無断で主役にした生成・投稿は利用規約で禁じています。",
+      },
+    ],
+    extraSpecs: [
+      ["料金", "1本980円（税込）／3本2,480円／10本5,980円。月額課金・自動更新なし"],
+      ["アカウント", "不要。ゲストのまま生成・ダウンロードできます"],
+      ["生成に失敗したとき", "クレジットは自動で返却されます（有効期限もありません）"],
+      ["公式関係", "ありません。Drake 氏および関連権利者とは無関係の独立したサービスです"],
+    ],
+    faq: [
+      {
+        q: "Burning Bridges AI動画トレンドとは何ですか？",
+        a: "シャンデリアの灯る個室のパーティーで、あなたや友人、ペットが主役の位置に立つ短いAI動画のトレンドです。ハンドヘルドのカメラが混んだ部屋を進み、友人がレンズに集まり、金属のカップが掲げられ、主役がカメラへ手を振る。ドレイクの「Burning Bridges」のミュージックビデオから広がった形で、多くのバージョンでは「Where she at?」の仕草まで入ります。",
+      },
+      {
+        q: "写真は1枚だけ必要ですか？",
+        a: "1枚です。このトレンドは主役が1人の構図のため、Hotel Lobby のように2枚を用意する必要はありません。集合写真を使う場合は、主役だけ切り抜いてからアップロードしてください。",
+      },
+      {
+        q: "ドレイクの元のMVを使っているのですか？",
+        a: "使っていません。元映像はライセンスされたミュージックビデオで、顔を合成する face swap の方式はその映像に依存します。バズリンはあなたの写真から新しいパーティーのシーンとして生成します。形（灯り・カップ・手を振る動き）は受け継ぎますが、元映像を編集・再配布するものではありません。",
+      },
+      {
+        q: "「Where She At?」とは何ですか？",
+        a: "トレンドの多くのバージョンで入っている仕草で、手のひらで目の上を覆いながら部屋を見渡す、音の拍に合わせた一拍です。スタイルで Where She At? を選んだときだけ入ります。定番の部屋の構図だけが欲しい場合は Chandelier Party を選んでください。",
+      },
+      {
+        q: "ペットやキャラクターでも作れますか？",
+        a: "作れます。ペットなら Party Pet を選んでください。顔と柄がはっきり写っている写真ほど、動き出した後も「その子」だと分かるままになります。キャラクターの画像は Chandelier Party か Where She At? で、正面の顔が分かる1枚を使ってください。使える素材かどうかはご自身で確認してください。",
+      },
+      {
+        q: "曲（音源）は入っていますか？",
+        a: "入っていません。動画は音なしで完成します。投稿する際に TikTok・Instagram Reels・YouTube Shorts のサウンドライブラリから楽曲を選んでください。各プラットフォームのライセンスの範囲内で使える、いちばん安全な方法です。",
+      },
+      {
+        q: "無料で試せますか？",
+        a: "配置のプレビューは無料で、クレジットカードの登録も不要です。写真を1枚アップロードすると、シャンデリアの部屋での位置・顔の大きさ・画面の切れ方をブラウザ上で確認できます。納得できた方だけ、1本980円（税込）で本編を書き出します。",
+      },
+      {
+        q: "スマホだけでも作れますか？",
+        a: "作れます。iPhone・Android ともにブラウザだけで完結し、アプリのインストールは不要です。アルバムから写真を選ぶだけで、縦型9:16の10秒動画を書き出せます。",
+      },
+      {
+        q: "他人や有名人の写真は使えますか？",
+        a: "ご本人または承諾を得ている方のみご利用ください。有名人の写真を無断で主役にした動画の生成や、本人のふりをする投稿は利用規約で禁じています。個人SNSへの投稿を前提としており、広告・商品販売などの商用利用はできません。",
+      },
+    ],
+    cta: {
+      title: "写真1枚で、パーティーの主役の配置を見てみませんか。",
+      sub: "クレジットカードもアプリも不要です。配置の確認までは無料です。",
+    },
+  },
+  {
+    slug: "rain-dance",
+    updated: "2026-10-13",
+    name: "Rain Dance",
+    title: "レインダンスAI動画の作り方｜写真1枚・8秒で雨の中の主役に",
+    h1: "Raindance（レインダンス）AI動画の作り方｜写真1枚で雨の中の1人ショットを",
+    lede: "夜のネオンが路面に反射する、土砂降りの街。写真1枚から、雨に打たれて動くシネマティックな1人ショットを8秒・縦型9:16で生成します。やわらかい霧雨のスタイルも選べます。プロンプトの入力はありません。",
+    description:
+      "雨に打たれて動く、シネマティックな1人ショットを写真1枚から。夜のネオンの雨街と、やわらかい霧雨の2スタイル。プロンプト不要、8秒・縦型9:16で書き出します。配置プレビューはカード不要で無料、1本980円（税込）から。",
+    cardBlurb: "写真1枚・8秒で、ネオンの雨街を動くシネマティックな1人ショット。",
+    accent: "#2fb7ff",
+    accent2: "#7a6bff",
+    scene: "rain",
+    category: "dance",
+    durationSec: 8,
+    aspectRatio: "9:16",
+    subjects: 1,
+    badges: ["写真1枚", "8秒・縦型9:16", "雨のスタイル2種", "プレビューは無料", "会員登録不要", "アプリ不要"],
+    seoKeywords: [
+      "rain dance ai",
+      "raindance ai",
+      "レインダンス ai動画",
+      "rain dance ai video 作り方",
+      "storm dance ai",
+      "雨 動画 ai",
+    ],
+    templates: [
+      {
+        id: "night-rain",
+        name: "Night Rain Street",
+        tagline: "ネオンの土砂降り",
+        blurb: "強い雨、路面の反射、夜の街の灯り。コントラストの効いた、いちばん映えるスタイルです。",
+        promptHint:
+          "One person moving and dancing in heavy night rain on a wet neon-lit city street, strong reflections on the ground, cinematic vertical 9:16, keep face identity and outfit from the photo",
+      },
+      {
+        id: "soft-drizzle",
+        name: "Soft Drizzle",
+        tagline: "やわらかい霧雨",
+        blurb:
+          "光を暖かく、雨を細くしたバージョン。顔立ちを柔らかく見せたいとき、日常の投稿に寄せたいときに合います。",
+        promptHint:
+          "One person moving gently in a soft fine drizzle with warm light, emotional and calm, cinematic vertical 9:16, keep face identity from the photo",
+      },
+    ],
+    aboutTitle: "Raindance・Storm Dance・雨のAI動画——名前は3つ、作り方は2種類",
+    about: [
+      "いま「レインダンス」「Raindance」「Storm Dance」という名前で検索されている動画には、実は2つの別々の形があります。混乱したまま探している方が多いので、先に分けておきます。",
+      "① 2人がMVのワンシーンに登場する形。写真2枚を用意して、15〜30秒の尺でMVの場面に入るタイプです。② 1人の主役が雨の中で動く、シネマティックな1人ショット。夜景・ネオンの反射・強い雨、あるいはやわらかい霧雨の中で、主役がカメラに向かって動くタイプです。",
+      "バズリンのこのページは、②の作り方です（写真1枚・8秒）。①の2人版は、現在のテンプレートには含まれていません。2人で作りたい場合は、写真2枚のデュエット Hotel Lobby が形としては近いテンプレートです。",
+      "「Storm Dance（ストームダンス）」という呼び方は、アプリ側がキャンペーン名として使っているもので、中身は雨や嵐の中で静止画を動かす同じ系統のアイデアです。一方で「雨 動画」「雨風 AI」のように、ただ雨の映像を作りたいという探し方もされています。このページはどちらにも対応しています。",
+      "プロンプト型の生成ツールで雨を頼むと、雨の量が足りなかったり、屋内の別のシーンに流れたりすることがあります。バズリンでは雨の密度、ネオンの反射、カメラとの距離がテンプレート側で固定されているため、写真を選ぶだけで雨の場面が決まります。",
+    ],
+    disclaimer:
+      "本ページはトレンドの作り方を解説する情報ページです。バズリンは「Raindance」「Storm Dance」を含む各楽曲・映像の権利者、およびアプリ運営者と一切関係を持っていません。既存の映像の編集・再配布は行わず、あなたの写真から新しいシーンを生成します。",
+    stepsTitle: "写真1枚からレインダンス動画を作る3ステップ",
+    steps: [
+      {
+        title: "雨の中で動かしたい1枚を選ぶ",
+        body: "正面または斜め向きで、顔と上半身がはっきり写っている写真がいちばん安定します。集合写真の場合は、先に1人分だけ切り抜いてください。全身が写っていると、服装まで雨のシーンに反映されます。",
+      },
+      {
+        title: "雨のスタイルを2つから選ぶ",
+        body: "ネオンが反射する土砂降りの街なら Night Rain Street、光を暖かくした細い雨なら Soft Drizzle。どちらにするかで雰囲気が大きく変わるので、書き出す前に決めてください。",
+      },
+      {
+        title: "プレビューして、保存",
+        body: "クレジットを使う前に、人物の位置と雨の場面をブラウザ上で確認できます。納得できたら1本980円（税込）で8秒・縦型9:16の動画を書き出します。曲は入りません。",
+      },
+    ],
+    promptGuide: {
+      title: "レインダンスAI動画のプロンプト（バズリンでは書きません）",
+      paragraphs: [
+        "雨を「降らせてください」とだけ頼むと、室内のシーンになってしまうことがあります。屋内ではないこと・夜であること・雨の量を先に固定するのが、崩さないコツです。",
+        "バズリンでは天気・場所と照明・カメラの距離・動きがテンプレート側で決まっているので、あなたが選ぶのは写真1枚とスタイルだけです。",
+      ],
+      boxLabel: "別の生成アプリで組む場合の順番",
+      order:
+        "① 主役と顔 → ② 天気と時間帯 → ③ 場所と照明 → ④ カメラの距離と挙動 → ⑤ 動き → ⑥ 長さ。",
+      recipe: [
+        "主役は1人。顔と服装は写真のまま保つ。",
+        "夜、屋外。強い雨が降っている。",
+        "濡れた路面にネオンの光が反射する街。",
+        "カメラは主役の正面、膝から上が入る距離。",
+        "主役は雨に打たれながら、ゆっくり体を動かす。",
+        "縦型9:16、長さ8秒。",
+      ].join("\n"),
+      outro: "…と書くくらいなら、写真を1枚選んでプレビューを押すほうが早いです。",
+    },
+    photoTipsTitle: "仕上がりが変わる・写真の条件",
+    photoTipsLede:
+      "うまくいかない生成のほとんどは、モデルではなく写真が原因です。アップロードする前に、この6項目だけ確認してください。",
+    photoTips: [
+      {
+        title: "両目が見えていること",
+        body: "前髪や手で目を隠した写真では、雨の中で動いたときに顔の一致が甘くなります。",
+      },
+      {
+        title: "1枚に1人",
+        body: "この形は主役1人のカットです。複数人が写っている写真だと、誰を動かすかを生成側が決められません。",
+      },
+      {
+        title: "上半身〜全身で撮る",
+        body: "頭だけのトリミングより、肩と服装まで写っているほうが、雨に濡れた質感がそのまま出ます。",
+      },
+      {
+        title: "光のムラが少ない1枚",
+        body: "強い逆光や直接のフラッシュの写真は、夜のネオンの照明と混ざって潰れます。柔らかい順光がいちばん安定します。",
+      },
+      {
+        title: "表情は自然に",
+        body: "雨の中の映像は動きで伝わるので、作り込んだ表情より、落ち着いた顔のほうが自然に仕上がります。",
+      },
+      {
+        title: "使える写真だけを",
+        body: "ご本人・ご家族・承諾のある方の写真のみご利用ください。",
+      },
+    ],
+    extraSpecs: [
+      ["料金", "1本980円（税込）／3本2,480円／10本5,980円。月額課金・自動更新なし"],
+      ["アカウント", "不要。ゲストのまま生成・ダウンロードできます"],
+      ["生成に失敗したとき", "クレジットは自動で返却されます（有効期限もありません）"],
+      [
+        "2人版について",
+        "MVのワンシーンに2人が登場する形（写真2枚・15〜30秒）は、現在のテンプレートには含まれていません",
+      ],
+    ],
+    faq: [
+      {
+        q: "Raindance AI動画トレンドとは何ですか？",
+        a: "雨の中で人を動かす短いAI動画の呼び方です。検索されている名前には Raindance、レインダンス、Storm Dance があり、作る形は2種類に分かれます。2人がMVのワンシーンに登場するタイプ（写真2枚・15〜30秒）と、1人の主役が雨の中で動くシネマティックなタイプ（写真1枚）です。バズリンは後者、1人ショットの作り方を提供しています。",
+      },
+      {
+        q: "レインダンスとストームダンスは何が違うのですか？",
+        a: "呼び方の違いで、中身は同じ系統のアイデアです。Storm Dance はアプリ側がキャンペーン名として使っている呼称で、嵐や雨の中で静止画を動かすものです。どちらも「雨の中で動く1人の映像」を指して探されているため、このページでは両方の呼び方に触れています。",
+      },
+      {
+        q: "写真は1枚ですか、2枚ですか？",
+        a: "1枚です。バズリンのレインダンスは、主役1人の8秒のカットを作ります。出回っている2枚タイプのMVシーン（15〜30秒）とは別の形なので、2人で作りたい場合は Hotel Lobby（写真2枚のデュエット）をご覧ください。",
+      },
+      {
+        q: "動画の長さと形式は？",
+        a: "8秒・縦型9:16のMP4で書き出します。TikTok・Instagram Reels・YouTube Shorts にそのまま投稿できる形です。",
+      },
+      {
+        q: "曲（音源）は入っていますか？",
+        a: "入っていません。動画は音なしで完成します。投稿する際に TikTok・Instagram Reels・YouTube Shorts のサウンドライブラリから曲を選んでください。著作権や利用範囲の心配なく使える方法です。",
+      },
+      {
+        q: "プロンプトを書かないと作れませんか？",
+        a: "書きません。雨の密度、ネオンの反射、夜の街、カメラとの距離はテンプレート側で固定されています。プロンプトで雨を頼むと、室内のシーンに流れたり雨の量が足りなくなったりすることがありますが、バズリンではその失敗が起きにくい作りにしています。",
+      },
+      {
+        q: "無料で試せますか？",
+        a: "配置のプレビューは無料で、クレジットカードの登録も不要です。人物の位置と雨の場面をブラウザ上で確認してから、1本980円（税込）で書き出します。月額課金や自動更新はありません。生成に失敗した回はクレジットを返却します。",
+      },
+      {
+        q: "スマホだけでも作れますか？",
+        a: "作れます。iPhone・Android ともにブラウザだけで完結し、アプリのインストールは不要です。アルバムから写真を選ぶだけで、8秒の縦型動画を書き出せます。",
+      },
+      {
+        q: "他人や有名人の写真は使えますか？",
+        a: "ご本人または承諾を得ている方のみご利用ください。有名人の写真を無断で主役にした動画の生成・投稿は利用規約で禁じています。個人SNSへの投稿を前提としており、広告・商品販売などの商用利用はできません。",
+      },
+    ],
+    cta: {
+      title: "写真1枚で、雨の中の1人ショットを見てみませんか。",
+      sub: "クレジットカードもアプリも不要です。配置の確認までは無料です。",
+    },
+  },
+  {
+    slug: "zombie-trend",
+    updated: "2026-10-12",
+    name: "Zombie Trend",
+    title: "ゾンビ変身AI動画｜写真1枚でZombie Trendを作成",
+    h1: "写真1枚で、一瞬でゾンビに変わる動画を。",
+    lede: "カメラに向かって歩いてくる途中で、じわりとゾンビに変化する。ホラー系のトレンドを写真1枚で作れます。",
+    description:
+      "Zombie Trend のAI動画を写真1枚で作成。カメラに向かって歩きながらゾンビに変化する、ホラー映画風の短い動画が完成します。プロンプト不要・縦型9:16・配置プレビュー無料。",
+    cardBlurb: "写真1枚・8秒で、ホラー調の色の中をゾンビになってカメラへ歩いてくる1カット。",
+    accent: "#7dff5a",
+    accent2: "#2bd4a0",
+    scene: "zombie",
+    category: "horror",
+    durationSec: 8,
+    aspectRatio: "9:16",
+    subjects: 1,
+    seoKeywords: ["zombie trend", "ゾンビ ai動画", "ゾンビ 変身 動画"],
+    templates: [
+      {
+        id: "street-zombie",
+        name: "Street Zombie",
+        blurb: "夜の路地をゆっくり歩いてくる、ホラー映画風の色調。",
+        promptHint:
+          "Person slowly walking toward the camera on a dark street, gradually transforming into a cinematic zombie, horror film color grading, fog, vertical 9:16 social video, keep the starting face identity from the photo",
+      },
+    ],
+    about: [
+      "Zombie Trend は、普通に歩いてくる人が、数秒のうちにゾンビへと変わっていくホラー系のトレンドです。変化の瞬間に視聴者が思わず二度見するので、短い動画でも最後まで見られやすいのが特徴です。",
+    ],
+    steps: [
+      {
+        title: "写真を1枚選ぶ",
+        body: "正面を向いた、明るい写真がおすすめです。",
+      },
+      {
+        title: "プレビューして書き出す",
+        body: "配置を無料で確認してから、1クレジットで8秒の縦型動画を書き出します。",
+      },
+    ],
+    photoTips: [
+      {
+        title: "表情は自然なままで",
+        body: "変化の前後がわかりやすいように、普段どおりの表情の写真がいちばん効果的です。",
+      },
+    ],
+    faq: [
+      {
+        q: "怖すぎる表現になりませんか？",
+        a: "SNSに投稿しやすいよう、流血などの過度な表現は抑えた映画風の色調で仕上げます。",
+      },
+      COMMON_FAQ.music,
+      COMMON_FAQ.commercial,
+      COMMON_FAQ.others,
+    ],
+  },
+];
+
+export function getEffect(slug: string) {
+  return EFFECTS.find((e) => e.slug === slug);
+}
+
+export function getFeaturedEffect() {
+  return EFFECTS.find((e) => e.featured) ?? EFFECTS[0];
+}
+
+export function photoCountLabel(effect: EffectDefinition) {
+  return effect.subjects === 2 ? "写真2枚" : "写真1枚";
+}

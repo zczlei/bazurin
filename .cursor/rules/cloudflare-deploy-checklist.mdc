@@ -1,0 +1,57 @@
+---
+description: Cloudflare 上线检查清单 — 部署 バズリン（bazurin.com）时必须对照检查
+alwaysApply: true
+---
+
+# Cloudflare 部署检查清单（バズリン / bazurin.com）
+
+上线前/部署时主动对照本清单，勿遗漏。架构与 DuetBooth 相同，但 Worker、KV、域名、OAuth 回调、Stripe Webhook 都是独立的一套。
+
+## 必须完成
+
+- [ ] **Workers**（OpenNext）→ Worker 名 `bazurin`（`wrangler.jsonc`）
+- [ ] **KV**：`npx wrangler kv namespace create BAZURIN_KV`，把 ID 填进 `wrangler.jsonc`（替换 `REPLACE_WITH_BAZURIN_KV_ID`）
+- [ ] **域名 / 自定义域**：`bazurin.com`（+ www→apex Redirect）
+- [ ] **运行时 URL**：`APP_URL` / `AUTH_URL` / `NEXT_PUBLIC_APP_URL` = `https://bazurin.com`
+- [ ] **特商法信息**：`src/lib/site.ts` 的 `operator` 里所有【要記入】已填写
+- [ ] 密钥放 Cloudflare Secrets（勿 commit `.env.local`）；本机部署用 `pnpm deploy`
+
+## Secrets（名称核对；勿把明文写进仓库/聊天）
+
+| Secret | 说明 |
+|---|---|
+| `STRIPE_SECRET_KEY` | 线上 `sk_live_...` |
+| `STRIPE_WEBHOOK_SECRET` | Live Webhook → `https://bazurin.com/api/webhook/stripe`（新建一条，不要复用 DuetBooth 的） |
+| `KIE_API_KEY` / `KIE_API_BASE` / `KIE_VIDEO_MODEL` / `KIE_RESOLUTION` | 视频 provider |
+| `ARK_API_KEY` / `ARK_API_BASE` / `ARK_VIDEO_MODEL` | `auto` 模式下非人脸走 ark |
+| `FAL_KEY` / `FAL_VIDEO_MODEL` / `FAL_RESOLUTION` | 备用 |
+| `VIDEO_PROVIDER` | `kie` / `fal` / `ark` / `auto` / `demo` |
+| `AUTH_SECRET` | Auth.js（建议新生成，不与 DuetBooth 共用） |
+| `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google OAuth |
+| `APP_URL` / `AUTH_URL` / `NEXT_PUBLIC_APP_URL` | `https://bazurin.com` |
+
+### Google OAuth 回调（Console 里配置，不是 CF Secret）
+
+- 本地：`http://localhost:3006/api/auth/callback/google`
+- 线上：`https://bazurin.com/api/auth/callback/google`
+- 同意页的应用名若仍是 DuetBooth，需改名或单独建一个 OAuth 客户端
+
+### Stripe
+
+- Checkout metadata `project: "bazurin"`，webhook / confirm 只接受本项目的 session
+- 若与 DuetBooth 共用 Stripe 账号，DuetBooth 一侧也应按 `project` 过滤
+
+### 写入 / 核对命令
+
+```bash
+npx wrangler secret list --name bazurin
+# printf '%s' 'value' | npx wrangler secret put NAME --name bazurin
+curl -s https://bazurin.com/api/wallet
+# 期望：store=kv, stripeReady=true, googleReady=true
+```
+
+## 其它
+
+- 生成走异步 jobs（提交 + 轮询），避免 Workers 长请求超时
+- KIE：大图先 `file-base64-upload`（路径 `bazurin`），再 `createTask`
+- 本地未绑 KV 时回退 `data/kv` 文件存储
