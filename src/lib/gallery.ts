@@ -1,17 +1,50 @@
 export type GalleryItem = {
   effectSlug: string;
-  /** Path under /public, e.g. /samples/hotel-lobby-01.mp4 */
-  video: string;
-  poster: string;
+  /** Scene still under /public. Not a finished export. */
+  image: string;
   alt: string;
   photos: 1 | 2;
 };
 
-/**
- * Real outputs only — never put mock-ups here. Each item is rendered as a
- * playable 作例 card on the home page and effect pages.
- */
-export const GALLERY: GalleryItem[] = [];
+/** One still per template. Shown as 作例; these are scene images, not exported videos. */
+export const GALLERY: GalleryItem[] = [
+  {
+    effectSlug: "hotel-lobby",
+    image: "/covers/booth.jpg",
+    alt: "Hotel Lobbyのイメージ。オレンジのブースで2人が並ぶ。",
+    photos: 2,
+  },
+  {
+    effectSlug: "bulin-47",
+    image: "/covers/redroom.jpg",
+    alt: "Bulin 47のイメージ。赤い照明のライブハウス。",
+    photos: 1,
+  },
+  {
+    effectSlug: "burning-bridges",
+    image: "/covers/party.jpg",
+    alt: "Burning Bridgesのイメージ。シャンデリアの下のパーティー。",
+    photos: 1,
+  },
+  {
+    effectSlug: "rain-dance",
+    image: "/covers/rain.jpg",
+    alt: "Rain Danceのイメージ。夜のネオンが映る雨の街。",
+    photos: 1,
+  },
+  {
+    effectSlug: "zombie-trend",
+    image: "/covers/zombie.jpg",
+    alt: "Zombie Trendのイメージ。暗い街を歩いてくるホラー調。",
+    photos: 1,
+  },
+  {
+    effectSlug: "pet-dance",
+    image: "/covers/pet.jpg",
+    alt: "Pet Danceのイメージ。立ち上がって揺れるペット。",
+    photos: 1,
+  },
+];
 
 export type FailureCase = {
   title: string;

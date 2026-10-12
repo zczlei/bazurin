@@ -15,11 +15,11 @@ export const SITE = {
   },
   /** Fill in before launch — required by 特定商取引法. */
   operator: {
-    company: "【要記入】運営会社名（または個人名）",
-    representative: "【要記入】運営責任者",
-    address: "【要記入】所在地（請求があった場合に遅滞なく開示します）",
-    phone: "【要記入】電話番号（請求があった場合に遅滞なく開示します）",
-    email: "support@bazurin.com",
+    company: "Raymond Zhao",
+    representative: "Raymond Zhao",
+    address: "請求があった場合、遅滞なく開示します。",
+    phone: "請求があった場合、遅滞なく開示します。",
+    email: "metabrowser1@gmail.com",
   },
 } as const;
 

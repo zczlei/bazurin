@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: effect.title,
       description: effect.description,
       url: absoluteUrl(path),
-      ...(sample ? { images: [{ url: sample.poster, width: 1080, height: 1920, alt: sample.alt }] } : {}),
+      ...(sample ? { images: [{ url: absoluteUrl(sample.image), alt: sample.alt }] } : {}),
     },
   };
 }
@@ -95,17 +95,10 @@ export default async function EffectPage({ params }: Props) {
       ...(sample
         ? [
             {
-              "@type": "VideoObject",
+              "@type": "ImageObject",
               name: sample.alt,
+              contentUrl: absoluteUrl(sample.image),
               description: effect.description,
-              thumbnailUrl: absoluteUrl(sample.poster),
-              contentUrl: absoluteUrl(sample.video),
-              uploadDate: effect.updated,
-              duration: `PT${effect.durationSec}S`,
-              width: 1080,
-              height: 1920,
-              inLanguage: "ja",
-              publisher: { "@type": "Organization", name: SITE.name, url: absoluteUrl("/") },
             },
           ]
         : []),
@@ -264,7 +257,7 @@ export default async function EffectPage({ params }: Props) {
           <SectionHead
             eyebrow="SAMPLES"
             title="作例"
-            lede="当社のテンプレートで生成した実際の出力です。音源は含まれていません。"
+            lede="この型のイメージです。完成した動画そのものではありません。"
           />
           <GalleryGrid effectSlug={effect.slug} />
           <p className="fine">

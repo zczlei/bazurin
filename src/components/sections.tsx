@@ -213,32 +213,12 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
 export function GalleryGrid({ limit, effectSlug }: { limit?: number; effectSlug?: string }) {
   const pool = effectSlug ? GALLERY.filter((g) => g.effectSlug === effectSlug) : GALLERY;
   const items = limit ? pool.slice(0, limit) : pool;
-  if (!items.length) {
-    return (
-      <div className="gallery-empty">
-        <p>
-          作例は現在準備中です。公開まで、各テンプレートの無料配置プレビューで仕上がりのイメージをご確認ください。
-        </p>
-        <Link href="/templates" className="btn btn-outline">
-          テンプレートを見る
-        </Link>
-      </div>
-    );
-  }
+  if (!items.length) return null;
   return (
     <div className="gallery-grid">
       {items.map((g) => (
-        <figure key={g.video} className="gallery-item">
-          <video
-            src={g.video}
-            poster={g.poster}
-            muted
-            loop
-            playsInline
-            controls
-            preload="none"
-            aria-label={g.alt}
-          />
+        <figure key={g.image} className="gallery-item">
+          <img src={g.image} alt={g.alt} />
           <figcaption>
             <Link href={`/effects/${g.effectSlug}`}>{g.alt}</Link>
           </figcaption>

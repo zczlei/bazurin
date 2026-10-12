@@ -1534,10 +1534,11 @@ ol {
   gap: 1rem;
 }
 
-.gallery-item video {
+.gallery-item img {
   width: 100%;
   aspect-ratio: 9 / 16;
   object-fit: cover;
+  object-position: center 42%;
   border-radius: 18px;
   background: #1b1424;
 }

@@ -8,6 +8,7 @@ import {
   JsonLd,
   SectionHead,
   Steps,
+  GalleryGrid,
   TemplateGrid,
   breadcrumbJsonLd,
   faqJsonLd,
@@ -218,8 +219,9 @@ export default function TemplatesPage() {
           <SectionHead
             eyebrow="SAMPLES"
             title="作例"
-            lede="実写の作例は現在準備中です。各カードの絵は型の雰囲気で、当社が書き出した動画ではありません。仕上がりの立ち位置は、下の配置プレビューで確認できます。"
+            lede="各型のイメージです。完成した動画そのものではありません。立ち位置は下の配置プレビューで確認できます。"
           />
+          <GalleryGrid />
         </section>
 
         <VideoGenerator

@@ -166,11 +166,11 @@ export default function HomePage() {
           <SectionHead
             eyebrow="SAMPLES"
             title="作例"
-            lede={`実際に${SITE.name}で生成された動画です。音源は付属していません。`}
+            lede="各テンプレートのイメージです。完成した動画そのものではありません。"
           />
           <GalleryGrid limit={8} />
           <p className="fine">
-            作例は当社のテンプレートで生成したものです。写真の枚数・構図により、仕上がりは変わります。
+            写真の枚数・構図により、仕上がりは変わります。立ち位置は配置プレビューで確認できます。
           </p>
         </section>
 
