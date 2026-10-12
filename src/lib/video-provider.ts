@@ -234,6 +234,10 @@ async function submitKie(input: GenerateInput): Promise<ProviderSubmitResult> {
     : undefined;
 
   const duration = Math.min(15, Math.max(4, input.durationSec || 4));
+  const frameUrls = [firstFrameUrl, lastFrameUrl].filter((url): url is string => Boolean(url));
+  // Seedance 2.5 rejects 9:16 on first/last-frame tasks (adaptive only).
+  // Reference images still accept the requested ratio, so the export stays vertical.
+  const seedance25 = /seedance-2[.-]5/.test(model);
 
   const create = await fetch(`${base}/api/v1/jobs/createTask`, {
     method: "POST",
@@ -245,8 +249,12 @@ async function submitKie(input: GenerateInput): Promise<ProviderSubmitResult> {
       model,
       input: {
         prompt: input.promptHint || `${input.effectSlug} trend video`,
-        first_frame_url: firstFrameUrl,
-        ...(lastFrameUrl ? { last_frame_url: lastFrameUrl } : {}),
+        ...(seedance25
+          ? { reference_image_urls: frameUrls }
+          : {
+              first_frame_url: firstFrameUrl,
+              ...(lastFrameUrl ? { last_frame_url: lastFrameUrl } : {}),
+            }),
         aspect_ratio: input.aspectRatio,
         resolution: env("KIE_RESOLUTION") || "480p",
         duration,
