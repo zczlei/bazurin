@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { CoverArt } from "@/components/CoverArt";
-import type { EffectDefinition } from "@/lib/effects";
-import { photoCountLabel } from "@/lib/effects";
+import { EFFECTS, photoCountLabel, type EffectDefinition } from "@/lib/effects";
 import type { FaqItem } from "@/lib/faq";
 import { FAILURE_CASES, GALLERY } from "@/lib/gallery";
 import { absoluteUrl, SITE } from "@/lib/site";
@@ -216,14 +215,17 @@ export function GalleryGrid({ limit, effectSlug }: { limit?: number; effectSlug?
   if (!items.length) return null;
   return (
     <div className="gallery-grid">
-      {items.map((g) => (
-        <figure key={g.image} className="gallery-item">
-          <img src={g.image} alt={g.alt} />
-          <figcaption>
-            <Link href={`/effects/${g.effectSlug}`}>{g.alt}</Link>
-          </figcaption>
-        </figure>
-      ))}
+      {items.map((g) => {
+        const name = EFFECTS.find((e) => e.slug === g.effectSlug)?.name;
+        return (
+          <Link key={g.image} href={`/effects/${g.effectSlug}`} className="gallery-card">
+            <span className="gallery-cover">
+              <img src={g.image} alt={g.alt} />
+            </span>
+            <span className="gallery-caption">{name ?? g.alt}</span>
+          </Link>
+        );
+      })}
     </div>
   );
 }
