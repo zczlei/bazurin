@@ -10,7 +10,7 @@ alwaysApply: true
 ## 必须完成
 
 - [ ] **Workers**（OpenNext）→ Worker 名 `bazurin`（`wrangler.jsonc`）
-- [ ] **KV**：`npx wrangler kv namespace create BAZURIN_KV`，把 ID 填进 `wrangler.jsonc`（替换 `REPLACE_WITH_BAZURIN_KV_ID`）
+- [x] **KV**：绑定名 `BAZURIN_KV`，ID `f3bbd51378f04bbab2805765d3c823c4`（已写入 `wrangler.jsonc`）
 - [ ] **域名 / 自定义域**：`bazurin.com`（+ www→apex Redirect）
 - [ ] **运行时 URL**：`APP_URL` / `AUTH_URL` / `NEXT_PUBLIC_APP_URL` = `https://bazurin.com`
 - [ ] **特商法信息**：`src/lib/site.ts` 的 `operator` 里所有【要記入】已填写
