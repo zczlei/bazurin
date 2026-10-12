@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getEffect } from "@/lib/effects";
+import { MAX_JOB_IMAGE_CHARS, maxImageMbLabel } from "@/lib/upload-limit";
 import { createJob, publicJobView } from "@/lib/jobs";
 import { submitVideoJob } from "@/lib/video-provider";
 import {
@@ -49,9 +50,11 @@ export async function POST(request: Request) {
   }
 
   const totalChars = imageUrls.reduce((n, u) => n + u.length, 0);
-  if (totalChars > 8_000_000) {
+  if (totalChars > MAX_JOB_IMAGE_CHARS) {
     return NextResponse.json(
-      { error: "写真のサイズが大きすぎます。別の写真でお試しください。" },
+      {
+        error: `写真のサイズが大きすぎます。1枚あたり最大${maxImageMbLabel(effect.subjects)}MBまでです。`,
+      },
       { status: 413 },
     );
   }

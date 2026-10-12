@@ -9,7 +9,7 @@ export type GalleryItem = {
 
 /**
  * Real outputs only — never put mock-ups here. Each item is rendered as a
- * playable 作例 card on / and /gallery.
+ * playable 作例 card on the home page and effect pages.
  */
 export const GALLERY: GalleryItem[] = [];
 

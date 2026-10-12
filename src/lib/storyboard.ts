@@ -144,6 +144,11 @@ function paintBackground(
       glow(ctx, W / 2, H * 0.25, H * 0.5, "rgba(140,255,110,0.18)");
       break;
     }
+    case "pet": {
+      linearBg(ctx, W, H, ["#e7f8ee", "#8ed9a8", "#2f9a58", "#146b38"]);
+      glow(ctx, W / 2, H * 0.28, H * 0.4, "rgba(255,255,255,0.35)");
+      break;
+    }
   }
 }
 
@@ -192,6 +197,12 @@ function paintForeground(
       ctx.lineTo(x - len * 0.18, y + len);
       ctx.stroke();
     }
+  }
+  if (scene === "pet") {
+    ctx.fillStyle = "rgba(20,80,40,0.18)";
+    ctx.beginPath();
+    ctx.ellipse(W / 2, H * 0.9, W * 0.34, H * 0.035, 0, 0, Math.PI * 2);
+    ctx.fill();
   }
   if (scene === "zombie") {
     for (let i = 0; i < 8; i++) {

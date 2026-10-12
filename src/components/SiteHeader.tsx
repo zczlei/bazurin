@@ -23,8 +23,6 @@ export function BrandMark({ size = 30 }: { size?: number }) {
 const NAV = [
   { href: "/templates", label: "テンプレート" },
   { href: "/trends", label: "トレンド" },
-  { href: "/gallery", label: "作例" },
-  { href: "/pricing", label: "料金" },
   { href: "/faq", label: "よくある質問" },
 ];
 

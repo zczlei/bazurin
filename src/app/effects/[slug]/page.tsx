@@ -60,6 +60,7 @@ export default async function EffectPage({ params }: Props) {
   const others = EFFECTS.filter((e) => e.slug !== effect.slug);
   const crumbs = [
     { name: "ホーム", path: "/" },
+    { name: "AI動画の作り方", path: "/make/ai-video-tutorial" },
     { name: "テンプレート", path: "/templates" },
     { name: effect.name, path },
   ];
@@ -165,9 +166,10 @@ export default async function EffectPage({ params }: Props) {
               {
                 title: "写真を選ぶ",
                 body:
-                  effect.subjects === 2
+                  effect.uploadHint ??
+                  (effect.subjects === 2
                     ? "1人1枚ずつ、写真を2枚選びます。「左の人」の枠が左、「右の人」の枠が右です。"
-                    : "顔がはっきり写った写真を1枚選びます。",
+                    : "顔がはっきり写った写真を1枚選びます。"),
               },
               {
                 title: "無料でプレビュー",
@@ -251,9 +253,6 @@ export default async function EffectPage({ params }: Props) {
               </article>
             ))}
           </div>
-          <p className="fine">
-            <Link href="/gallery#failures">よくある失敗例と対策を見る →</Link>
-          </p>
         </section>
 
         <section className="section">
@@ -275,10 +274,53 @@ export default async function EffectPage({ params }: Props) {
 
         <PricingSection returnPath={path} />
 
+        {effect.compare ? (
+          <section className="section">
+            <SectionHead eyebrow="COMPARE" title={effect.compare.title} lede={effect.compare.intro} />
+            <div className="compare-wrap">
+              <table className="compare">
+                <thead>
+                  <tr>
+                    {effect.compare.cols.map((c) => (
+                      <th key={c} scope="col">
+                        {c}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {effect.compare.rows.map((row) => (
+                    <tr key={row[0]}>
+                      {row.map((cell) => (
+                        <td key={cell}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="fine">{effect.compare.note}</p>
+          </section>
+        ) : null}
+
         <section className="section" id="faq">
           <SectionHead eyebrow="FAQ" title={`${effect.name} のよくある質問`} />
           <FaqList items={effect.faq} />
         </section>
+
+        {effect.related?.length ? (
+          <section className="section section-tight">
+            <SectionHead eyebrow="RELATED" title="こちらも" />
+            <ul className="related-list">
+              {effect.related.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href}>{item.anchor}</Link>
+                  <p>{item.desc}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
         <section className="section">
           <SectionHead

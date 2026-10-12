@@ -10,6 +10,8 @@ export type GeneratorEffect = {
   accent: string;
   accent2: string;
   templates: { id: string; name: string; blurb: string }[];
+  uploadHint?: string;
+  slotLabel?: string;
 };
 
 export function toGeneratorEffect(effect: EffectDefinition): GeneratorEffect {
@@ -22,5 +24,7 @@ export function toGeneratorEffect(effect: EffectDefinition): GeneratorEffect {
     accent: effect.accent,
     accent2: effect.accent2,
     templates: effect.templates.map(({ id, name, blurb }) => ({ id, name, blurb })),
+    uploadHint: effect.uploadHint,
+    slotLabel: effect.slotLabel,
   };
 }

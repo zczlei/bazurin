@@ -44,6 +44,7 @@ yarn-error.log*
 
 # local SEO / copy planning notes (repo is public)
 /[0-9].md
+/[0-9][0-9].md
 
 # vercel
 .vercel

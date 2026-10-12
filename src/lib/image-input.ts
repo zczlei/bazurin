@@ -1,4 +1,4 @@
-import { SITE } from "@/lib/site";
+import { imagePayloadBudget, maxImageMbLabel } from "@/lib/upload-limit";
 
 const MAX_EDGE = 1536;
 
@@ -24,12 +24,9 @@ async function decode(file: File): Promise<CanvasImageSource & { width: number; 
 
 /**
  * Validate, decode (incl. HEIC where the browser supports it), downscale and
- * re-encode as JPEG so uploads stay well under the API payload limit.
+ * re-encode as JPEG, then reject anything over the jobs API character budget.
  */
-export async function normalizePhoto(file: File): Promise<string> {
-  if (file.size > SITE.upload.maxMb * 1024 * 1024) {
-    throw new Error(`写真のサイズは1枚あたり${SITE.upload.maxMb}MBまでです。`);
-  }
+export async function normalizePhoto(file: File, photoCount = 1): Promise<string> {
   if (file.type && !file.type.startsWith("image/")) {
     throw new Error("画像ファイルを選んでください。");
   }
@@ -53,5 +50,9 @@ export async function normalizePhoto(file: File): Promise<string> {
   if (!ctx) throw new Error("この端末では写真を処理できません。");
   ctx.drawImage(source, 0, 0, w, h);
   if ("close" in source && typeof source.close === "function") source.close();
-  return canvas.toDataURL("image/jpeg", 0.9);
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
+  if (dataUrl.length > imagePayloadBudget(photoCount)) {
+    throw new Error(`写真のサイズは1枚あたり${maxImageMbLabel(photoCount)}MBまでです。`);
+  }
+  return dataUrl;
 }

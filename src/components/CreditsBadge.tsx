@@ -31,7 +31,7 @@ export function CreditsBadge() {
   }, []);
 
   return (
-    <Link href="/pricing" className="credits-badge" title="残りクレジット（動画の本数）">
+    <Link href="/#pricing" className="credits-badge" title="残りクレジット（動画の本数）">
       <span className="credits-dot" aria-hidden />
       {credits === null ? "…" : `残り${credits}本`}
     </Link>

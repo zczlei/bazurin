@@ -5,6 +5,7 @@ import { photoCountLabel } from "@/lib/effects";
 import type { FaqItem } from "@/lib/faq";
 import { FAILURE_CASES, GALLERY } from "@/lib/gallery";
 import { absoluteUrl, SITE } from "@/lib/site";
+import { maxImageMbLabel } from "@/lib/upload-limit";
 
 export function SectionHead({
   eyebrow,
@@ -55,7 +56,7 @@ export function TemplateGrid({
   uidPrefix: string;
 }) {
   return (
-    <div className="tpl-grid">
+    <div className={effects.length === 1 ? "tpl-grid tpl-grid-single" : "tpl-grid"}>
       {effects.map((e) => (
         <TemplateCard key={e.slug} effect={e} uid={`${uidPrefix}-${e.slug}`} />
       ))}
@@ -108,7 +109,7 @@ export function siteSpecRows(): [string, string][] {
 
 export function effectSpecRows(effect: EffectDefinition): [string, string][] {
   return [
-    ["必要な写真", `${photoCountLabel(effect)}（${SITE.upload.acceptLabel}・1枚${SITE.upload.maxMb}MBまで）`],
+    ["必要な写真", `${photoCountLabel(effect)}（${SITE.upload.acceptLabel}・1枚${maxImageMbLabel(effect.subjects)}MBまで）`],
     ["スタイル", effect.templates.map((t) => t.name).join("・")],
     ["アスペクト比", `${SITE.output.aspectRatio}`],
     ["長さ", `${effect.durationSec}秒`],

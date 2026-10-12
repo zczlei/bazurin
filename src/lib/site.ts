@@ -10,7 +10,6 @@ export const SITE = {
     lengthRange: "8〜10秒",
   },
   upload: {
-    maxMb: 10,
     accept: "image/jpeg,image/png,image/webp,image/heic,image/heif",
     acceptLabel: "JPG・PNG・WebP・HEIC 対応",
   },

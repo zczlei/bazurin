@@ -32,9 +32,8 @@ export default async function sitemap(props: { id: Promise<string> }): Promise<M
       return [
         entry("/", 1, "weekly"),
         entry("/templates", 0.8, "weekly"),
+        entry("/make/ai-video-tutorial", 0.7, "monthly", new Date("2026-10-12")),
         entry("/trends", 0.8, "daily"),
-        entry("/gallery", 0.6, "weekly"),
-        entry("/pricing", 0.6, "monthly"),
         entry("/faq", 0.5, "monthly"),
       ];
     case "effects":

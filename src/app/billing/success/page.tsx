@@ -33,7 +33,7 @@ export default async function BillingSuccessPage({ searchParams }: Props) {
       <p className="billing-links">
         <Link href={backHref}>動画作成に戻る</Link>
         {" ・ "}
-        <Link href="/pricing">料金を見る</Link>
+        <Link href="/#pricing">料金を見る</Link>
       </p>
     </main>
   );

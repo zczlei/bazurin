@@ -8,6 +8,7 @@ import type { GeneratorEffect } from "@/lib/generator-effect";
 import { normalizePhoto } from "@/lib/image-input";
 import { CREDIT_PACKS } from "@/lib/packs";
 import { SITE, yen } from "@/lib/site";
+import { MAX_JOB_IMAGE_CHARS, maxImageMbLabel } from "@/lib/upload-limit";
 import { renderStoryboard } from "@/lib/storyboard";
 
 type Props = {
@@ -128,7 +129,7 @@ export function VideoGenerator({ effects, initialSlug, selectable, heading }: Pr
     if (!file) return;
     setError(null);
     try {
-      const dataUrl = await normalizePhoto(file);
+      const dataUrl = await normalizePhoto(file, effect.subjects);
       setPhotos((prev) => {
         const next = [...prev];
         next[index] = dataUrl;
@@ -238,6 +239,12 @@ export function VideoGenerator({ effects, initialSlug, selectable, heading }: Pr
     setNote(null);
     try {
       const imageUrls = activePhotos as string[];
+      const totalChars = imageUrls.reduce((n, u) => n + u.length, 0);
+      if (totalChars > MAX_JOB_IMAGE_CHARS) {
+        throw new Error(
+          `写真のサイズが大きすぎます。1枚あたり最大${maxImageMbLabel(effect.subjects)}MBまでです。`,
+        );
+      }
       const hasHumanFace = await detectHumanFaceInBlobUrls(imageUrls);
       const res = await fetch("/api/jobs", {
         method: "POST",
@@ -365,7 +372,7 @@ export function VideoGenerator({ effects, initialSlug, selectable, heading }: Pr
                       +
                     </span>
                     <strong>
-                      {effect.subjects === 2 ? (i === 0 ? "左の人" : "右の人") : "写真を選ぶ"}
+                      {effect.subjects === 2 ? (i === 0 ? "左の人" : "右の人") : (effect.slotLabel ?? "写真を選ぶ")}
                     </strong>
                     <span>ドラッグ＆ドロップ、またはタップして写真を選ぶ</span>
                     <input
@@ -384,12 +391,14 @@ export function VideoGenerator({ effects, initialSlug, selectable, heading }: Pr
 
           <ul className="gen-hints">
             <li>
-              {SITE.upload.acceptLabel}／1枚あたり最大 {SITE.upload.maxMb}MB
+              {SITE.upload.acceptLabel}／1枚あたり最大 {maxImageMbLabel(effect.subjects)}MB
             </li>
             {effect.subjects === 2 ? (
               <li>{effect.name} の場合は、写真2枚をご用意ください。</li>
             ) : null}
-            <li>顔と上半身がはっきり写っている写真ほど、仕上がりが良くなります。</li>
+            <li>
+              {effect.uploadHint ?? "顔と上半身がはっきり写っている写真ほど、仕上がりが良くなります。"}
+            </li>
           </ul>
 
           <div className="gen-actions">

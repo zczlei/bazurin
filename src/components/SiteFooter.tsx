@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { BrandMark } from "@/components/SiteHeader";
-import { EFFECTS } from "@/lib/effects";
 import { SITE } from "@/lib/site";
-import { TOOLS } from "@/lib/tools";
+
+const FOOTER_TOOLS = [
+  { href: "/tools/photo-to-video", label: "写真から動画を作る" },
+  { href: "/tools/image-to-video", label: "画像から動画を作る" },
+  { href: "/tools/dance-video", label: "ダンス動画の作り方" },
+  { href: "/tools/animate-photo", label: "写真を動かす" },
+];
 
 export function SiteFooter() {
   return (
@@ -20,34 +25,24 @@ export function SiteFooter() {
           </div>
           <div className="footer-cols">
             <div>
-              <p className="footer-head">
-                <Link href="/templates">テンプレート</Link>
-              </p>
-              {EFFECTS.map((e) => (
-                <Link key={e.slug} href={`/effects/${e.slug}`}>
-                  {e.name}
-                </Link>
-              ))}
+              <p className="footer-head">テンプレート</p>
+              <Link href="/templates">動画テンプレート</Link>
             </div>
             <div>
               <p className="footer-head">使い方</p>
+              <Link href="/make/ai-video-tutorial">AI動画の作り方</Link>
               <Link href="/#how">3ステップの作り方</Link>
-              <Link href="/gallery#photo-tips">写真の条件</Link>
+              <Link href="/make/ai-video-tutorial#tips">写真の条件</Link>
               <Link href="/faq">よくある質問</Link>
               <Link href="/trends">今週バズってるAI動画</Link>
             </div>
             <div>
               <p className="footer-head">機能</p>
-              {TOOLS.map((t) => (
-                <Link key={t.slug} href={`/tools/${t.slug}`}>
-                  {t.navLabel}
+              {FOOTER_TOOLS.map((t) => (
+                <Link key={t.href} href={t.href}>
+                  {t.label}
                 </Link>
               ))}
-            </div>
-            <div>
-              <p className="footer-head">その他</p>
-              <Link href="/pricing">料金</Link>
-              <Link href="/gallery">作例</Link>
             </div>
           </div>
         </div>
