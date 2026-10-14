@@ -15,8 +15,8 @@ export const SITE = {
   },
   /** Fill in before launch — required by 特定商取引法. */
   operator: {
-    company: "Raymond Zhao",
-    representative: "Raymond Zhao",
+    company: "X BROWSER LIMITED",
+    representative: "X BROWSER LIMITED",
     address: "請求があった場合、遅滞なく開示します。",
     phone: "請求があった場合、遅滞なく開示します。",
     email: "metabrowser1@gmail.com",
