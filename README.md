@@ -30,7 +30,7 @@ pnpm dev   # http://localhost:3006
 |------|------|
 | `src/lib/site.ts` | 站名、输出规格、上传限制、**特商法运营者信息（上线前必填）** |
 | `src/lib/effects.ts` | 趋势页全部文案、风格（`templates[].promptHint` 发给视频模型）、FAQ、规格追加行 |
-| `src/lib/packs.ts` | 价格：1 本 ¥980 / 3 本 ¥2,480 / Creator Pack 10 本 ¥5,980 |
+| `src/lib/packs.ts` | 价格：1 本 ¥780 / 3 本 ¥1,980 / Creator Pack 10 本 ¥4,880 |
 | `src/lib/gallery.ts` | 作例（只放真实成片）与失败例 |
 | `src/lib/tools.ts`、`src/lib/faq.ts`、`src/lib/legal.ts` | 功能页、FAQ、法务页 |
 

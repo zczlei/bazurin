@@ -12,14 +12,14 @@ export const CREDIT_PACKS: CreditPack[] = [
   {
     id: "single",
     videos: 1,
-    priceJpy: 980,
+    priceJpy: 780,
     label: "1本",
     features: ["書き出し1回分", "透かしなし"],
   },
   {
     id: "three",
     videos: 3,
-    priceJpy: 2480,
+    priceJpy: 1980,
     label: "3本パック",
     badge: "いちばん選ばれています",
     features: ["書き出し3回分", "失敗分はもう1回作り直せます"],
@@ -27,7 +27,7 @@ export const CREDIT_PACKS: CreditPack[] = [
   {
     id: "creator",
     videos: 10,
-    priceJpy: 5980,
+    priceJpy: 4880,
     label: "Creator Pack",
     features: ["書き出し10回分", "1本あたりがいちばんお得", "クレジットに有効期限なし"],
   },
