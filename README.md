@@ -13,7 +13,7 @@
 | `/tools/[slug]` | 功能词页：`image-to-video` / `photo-to-video` / `dance-video` / `animate-photo` |
 | `/gallery`、`/pricing`、`/faq` | 作例（含失败例）、料金、FAQ |
 | `/legal/[slug]` | `tokushoho`（特商法）/ `privacy` / `terms` / `company` |
-| `/sitemap/{main,effects,tools,legal}.xml` | 分片 sitemap（`robots.txt` 已列出） |
+| `/sitemap.xml` | 站点地图（`robots.txt` 已列出） |
 
 ## 本地启动
 

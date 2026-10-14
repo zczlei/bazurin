@@ -23,8 +23,6 @@ export const SITE = {
   },
 } as const;
 
-export const SITEMAP_IDS = ["main", "effects", "tools", "legal"] as const;
-
 export function absoluteUrl(path = "/") {
   return `${SITE.url}${path === "/" ? "/" : path}`;
 }

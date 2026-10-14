@@ -40,4 +40,4 @@ Dashboard → Worker `bazurin` → Settings → Builds：
 
 1. push `main` 后 Actions `Deploy Cloudflare` 变绿
 2. `curl -s https://bazurin.com/api/wallet` 返回 `store=kv`
-3. `https://bazurin.com/sitemap/main.xml`、`/robots.txt` 可访问
+3. `https://bazurin.com/sitemap.xml`、`/robots.txt` 可访问
