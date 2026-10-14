@@ -52,6 +52,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ja" className={`${sans.variable} ${display.variable}`}>
+      <head>
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="UNuex3oT/0+sXpBz+xMS7Q"
+          async
+        />
+      </head>
       <body>
         <Providers>
           <SiteHeader />
