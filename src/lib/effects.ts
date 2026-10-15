@@ -126,9 +126,9 @@ export const EFFECTS: EffectDefinition[] = [
         name: "Classic Orange Booth",
         tagline: "あの構図そのもの",
         blurb:
-          "オレンジ色のブース、天井から吊るされたマイク、カメラを動かさない固定のミディアムショット。トレンドでみんなが真似しているのはこのスタイルです。",
+          "オレンジ色のブース、天井から吊るされたマイク、全身が入る固定ショット。トレンドでみんなが真似しているのはこのスタイルです。",
         promptHint:
-          "Two performers side by side in a bright orange COLORS-style studio booth, one hanging microphone between them, alternating rap gestures and head nods, locked medium shot with no camera movement, the left person stays on the left and the right person stays on the right, keep both faces and outfits from the reference photos, vertical 9:16 music video",
+          "Two adults shown full body in a matte orange seamless booth, one black microphone hanging at center, soft even front light. The person from the left photo stays on the left and performs first while the person on the right nods, then they switch who performs. Positions never swap. Locked centered camera, visible feet, no zoom, no cuts. Keep both faces, hair, and outfits exactly from the reference photos. No face blending, no extra people, no text, no logos. Vertical 9:16.",
       },
       {
         id: "friends-couples",
@@ -137,7 +137,7 @@ export const EFFECTS: EffectDefinition[] = [
         blurb:
           "2人の主役をはっきり左右に離して配置します。顔が近い写真・寄り添った写真を使うときは、こちらが安定します。",
         promptHint:
-          "Two friends performing a playful call-and-response in an orange COLORS-style booth with a hanging microphone, clear separation between the two people, smiling and pointing at each other, locked medium shot, positions never swap, keep both faces from the reference photos, vertical 9:16",
+          "Two adults shown full body with clear space between them in a matte orange seamless booth, one black microphone hanging at center. The left photo stays on the left and the right photo stays on the right. They smile and point across the gap. Positions never swap. Locked centered camera, visible feet, no zoom, no cuts. Keep both faces and outfits. No face blending, no extra people, no text, no logos. Vertical 9:16.",
       },
       {
         id: "pets",
@@ -145,7 +145,7 @@ export const EFFECTS: EffectDefinition[] = [
         tagline: "ペット2匹で",
         blurb: "犬や猫を2匹並べる派生形。毛並みや柄の個性はそのままに、口と体の動きをつけます。",
         promptHint:
-          "Two pets sitting side by side in an orange studio booth under a hanging microphone, bobbing their heads to the beat, playful and cute, keep fur color and markings from the reference photos, locked medium shot, vertical 9:16",
+          "Two pets shown full body side by side in a matte orange seamless booth, one black microphone hanging at center. The left pet stays left and the right pet stays right while they bob their heads. Locked camera, no cuts, no extra animals. Keep fur color and markings from the reference photos. No text, no logos. Vertical 9:16.",
       },
     ],
     aboutTitle: "ホテルロビーAI動画トレンドとは",
@@ -437,7 +437,7 @@ export const EFFECTS: EffectDefinition[] = [
         blurb:
           "混んだ個室、温かい金色の灯り、水晶のシャンデリア。カメラにまっすぐ振る手と金属のカップ。トレンドでいちばん多く真似されている形です。",
         promptHint:
-          "One person as the life of a packed private dining-room party under crystal chandeliers, warm golden light, handheld camera energy, raising a metal cup, waving at the lens, friends crowding behind, cinematic vertical 9:16 music-video style, keep the subject's face identity and outfit from the photo, original motion not a celebrity likeness",
+          "One person stays in one packed private dining room under crystal chandeliers for the whole clip, warm golden light, handheld camera moving through the crowd toward them. A metal cup stays in their hand the entire time as they raise it and wave at the lens. Friends crowd behind. Single continuous shot, do not cut to another room. Keep face, hair, and outfit from the photo. No celebrity likeness, no text, no logos. Vertical 9:16.",
       },
       {
         id: "where-she-at",
@@ -446,7 +446,7 @@ export const EFFECTS: EffectDefinition[] = [
         blurb:
           "手のひらで目の上を覆いながら部屋を見渡す、あの一拍を入れるスタイル。音のタイミングに映像を寄せたい方向けです。",
         promptHint:
-          "One person in a chandelier-lit party scene doing the hand-over-eyes searching gesture twice, silver cup in hand, finger flicks at the lens, crowded friends behind, warm film look, vertical 9:16, keep face identity from the photo",
+          "One person stays in the same chandelier-lit party room for the whole clip. They cover their eyes with one palm and look around the room, and they do that searching gesture only twice. A silver cup stays in the other hand the entire time, with small finger flicks toward the lens. Crowded friends behind, warm film light. Single continuous shot, do not cut to another room. Keep face identity from the photo. Vertical 9:16.",
       },
       {
         id: "party-pet",
@@ -455,7 +455,7 @@ export const EFFECTS: EffectDefinition[] = [
         blurb:
           "犬や猫をパーティーの主役の位置に立たせる派生形。毛並みと柄の個性はそのままに、少し得意げな立ち姿の動きをつけます。",
         promptHint:
-          "A pet standing upright as the star of a packed chandelier party, silver cup raised, waving at the handheld camera, warm golden light, friends in soft focus behind, cinematic vertical 9:16, keep fur markings from the photo",
+          "One pet stands upright as the star of the same chandelier party room for the whole clip. A silver cup stays raised while it waves at the handheld camera. Warm golden light, friends in soft focus behind. Single continuous shot, do not cut away. Keep fur markings from the photo. No extra animals, no text. Vertical 9:16.",
       },
     ],
     aboutTitle: "Burning Bridges AI動画トレンドとは",
@@ -610,7 +610,7 @@ export const EFFECTS: EffectDefinition[] = [
         tagline: "ネオンの土砂降り",
         blurb: "強い雨、路面の反射、夜の街の灯り。コントラストの効いた、いちばん映えるスタイルです。",
         promptHint:
-          "One person moving and dancing in heavy night rain on a wet neon-lit city street, strong reflections on the ground, cinematic vertical 9:16, keep face identity and outfit from the photo",
+          "One person dancing outdoors for the entire clip on a wet neon city street in heavy night rain. Raindrops hit their clothes, face, and the camera lens, with strong reflections on the ground. Do not move indoors and do not cut to another location. Keep face and outfit from the photo. Vertical 9:16.",
       },
       {
         id: "soft-drizzle",
@@ -619,7 +619,7 @@ export const EFFECTS: EffectDefinition[] = [
         blurb:
           "光を暖かく、雨を細くしたバージョン。顔立ちを柔らかく見せたいとき、日常の投稿に寄せたいときに合います。",
         promptHint:
-          "One person moving gently in a soft fine drizzle with warm light, emotional and calm, cinematic vertical 9:16, keep face identity from the photo",
+          "One person moving gently outdoors for the entire clip in a fine warm drizzle. Light rain stays visible on their hair and on the camera lens. Do not move indoors and do not cut away. Emotional and calm. Keep face identity from the photo. Vertical 9:16.",
       },
     ],
     aboutTitle: "Raindance・Storm Dance・雨のAI動画——名前は3つ、作り方は2種類",
@@ -782,7 +782,7 @@ export const EFFECTS: EffectDefinition[] = [
         blurb:
           "ゆっくりカメラへ向かって歩いてくる、ホラー調の色味の8秒。色は落ち、影は濃くなり、空気だけが先に怖くなります。",
         promptHint:
-          "One person slowly walking toward a locked camera on a dark street at night, horror color grade with heavier shadows and muted colors, slight fog, no gore, vertical 9:16, keep face identity and outfit from the photo",
+          "Single continuous shot of one person slowly walking toward a locked camera on a dark street at night. Pale muted colors, heavier shadows, slight fog. Slow walk only, no running, no hug, no second person, no gore, no blood, no cuts. Keep face identity and outfit from the photo. Vertical 9:16.",
       },
     ],
     aboutTitle: "いま広がっているAIゾンビ動画のトレンドとは",
@@ -940,7 +940,7 @@ export const EFFECTS: EffectDefinition[] = [
         tagline: "立ち上がって、その場で揺れる",
         blurb: "後足で立ち上がり、体幹と前脚、口がリズムに合わせて揺れる8秒。振り付けの指定はありません。",
         promptHint:
-          "One pet rising onto its hind legs from a side-view full-body photo and swaying in place to a rhythm, front paws and torso and mouth moving gently, locked camera, plain background, vertical 9:16, keep fur color and markings from the photo, no extra animals, no copied human choreography",
+          "Single continuous shot. The pet first rises onto its hind legs, then stays in place and sways, with the torso, front paws, and mouth moving gently. Locked camera, plain background, no dance steps, no copied human choreography, no extra animals, no cuts. Keep fur color and markings from the photo. Vertical 9:16.",
       },
     ],
     aboutTitle: "犬ダンス動画は、作り方が3つあります",
